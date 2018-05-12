@@ -1,6 +1,5 @@
 # This image is an Ubuntu base image for Source-to-Image builds
 FROM williamyeh/ansible:ubuntu16.04
-MAINTAINER godleon <godleon@gmail.com>
 
 LABEL \
     io.k8s.description="Ubuntu 16.04 with Common Utilities" \
@@ -36,12 +35,8 @@ COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 # Copy executable utilities.
 COPY bin/ /usr/bin/
 
-# Copy the S2I scripts to /usr/libexec/s2i since we set the label that way
-#COPY s2i/bin/ $STI_SCRIPTS_PATH
-
 # Setup the 'openshift' user that is used for build execution and for the
 # application runtime execution.
-#RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin -c "Default Application User" default && \
 RUN useradd -u 1001 -r -g 0 -d ${HOME} -s /sbin/nologin -c "Default Application User" default && \
 mkdir -p ${HOME} && \
 chown -R 1001:0 ${HOME}
